@@ -1,0 +1,117 @@
+cabal-version: 3.0
+name: syntactic-class
+version: 0
+category: Text, Builders, Formatting, Parsing, Syntax
+synopsis:
+description:
+homepage: https://github.com/nikita-volkov/syntactic-class
+bug-reports: https://github.com/nikita-volkov/syntactic-class/issues
+author: Nikita Volkov <nikita.y.volkov@mail.ru>
+maintainer: Nikita Volkov <nikita.y.volkov@mail.ru>
+copyright: (c) 2025, Nikita Volkov
+license: MIT
+license-file: LICENSE
+extra-doc-files:
+  CHANGELOG.md
+  LICENSE
+  README.md
+
+source-repository head
+  type: git
+  location: https://github.com/nikita-volkov/syntactic-class
+
+common base
+  default-language: Haskell2010
+  default-extensions:
+    BangPatterns
+    BlockArguments
+    ConstraintKinds
+    DataKinds
+    DefaultSignatures
+    DeriveDataTypeable
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveTraversable
+    DerivingStrategies
+    EmptyDataDecls
+    FlexibleContexts
+    FlexibleInstances
+    FunctionalDependencies
+    GADTs
+    GeneralizedNewtypeDeriving
+    LambdaCase
+    LiberalTypeSynonyms
+    MagicHash
+    MultiParamTypeClasses
+    MultiWayIf
+    NoImplicitPrelude
+    NoMonomorphismRestriction
+    NumericUnderscores
+    OverloadedStrings
+    ParallelListComp
+    PatternGuards
+    QuasiQuotes
+    RankNTypes
+    RecordWildCards
+    ScopedTypeVariables
+    StandaloneDeriving
+    StrictData
+    TemplateHaskell
+    TupleSections
+    TypeApplications
+    TypeFamilies
+    TypeOperators
+    UnboxedTuples
+    ViewPatterns
+
+common executable
+  import: base
+  ghc-options:
+    -O2
+    -threaded
+    -with-rtsopts=-N
+    -rtsopts
+    -funbox-strict-fields
+
+common test
+  import: base
+  ghc-options:
+    -threaded
+    -with-rtsopts=-N
+
+library
+  import: base
+  hs-source-dirs: src/library
+  exposed-modules: SyntacticClass
+  other-modules:
+    SyntacticClass.Class
+    SyntacticClass.Instances.InIso8601
+    SyntacticClass.Prelude
+
+  build-depends:
+    QuickCheck >=2.14 && <3,
+    attoparsec >=0.14 && <0.15,
+    attoparsec-time ^>=1.0.3.1,
+    base >=4.11 && <5,
+    bytestring >=0.10 && <0.13,
+    quickcheck-instances >=0.3.28 && <0.4,
+    text >=1.0 && <3,
+    text-builder-dev ^>=0.4,
+    time >=1.12 && <2,
+    transformers >=0.5 && <0.7,
+
+test-suite test
+  import: test
+  type: exitcode-stdio-1.0
+  hs-source-dirs: src/test
+  main-is: Main.hs
+  other-modules:
+  build-tool-depends:
+    hspec-discover:hspec-discover >=2 && <3
+
+  build-depends:
+    QuickCheck >=2.14 && <3,
+    hspec >=2.11 && <3,
+    rerebase >=1.21.2 && <2,
+    syntactic-class,
