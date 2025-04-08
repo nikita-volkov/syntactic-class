@@ -4,7 +4,7 @@ module SyntacticClass.Instances.InIso8601.Builders
 where
 
 import SyntacticClass.Prelude
-import TextBuilderDev
+import TextBuilder
 
 {-# INLINE utcTime #-}
 utcTime :: UTCTime -> TextBuilder

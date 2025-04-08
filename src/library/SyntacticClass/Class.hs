@@ -4,7 +4,7 @@ import qualified Data.Attoparsec.Text as Attoparsec
 import qualified Data.Text as Text
 import SyntacticClass.Prelude
 import qualified Test.QuickCheck as QuickCheck
-import qualified TextBuilderDev
+import qualified TextBuilder
 
 -- |
 -- Canonical syntax for a value with rendering and parsing capabilities.
@@ -14,14 +14,14 @@ import qualified TextBuilderDev
 -- - @'maybeFromText' . 'toText' = 'Just'@
 class Syntactic value where
   -- | Compile the value to 'TextBuilder'.
-  toTextBuilder :: value -> TextBuilderDev.TextBuilder
+  toTextBuilder :: value -> TextBuilder.TextBuilder
 
   -- | Attoparsec parser of the value.
   attoparsecParserOf :: Attoparsec.Parser value
 
 -- | Compile the value to 'Text'.
 toText :: (Syntactic value) => value -> Text
-toText = TextBuilderDev.to . toTextBuilder
+toText = TextBuilder.toText . toTextBuilder
 
 -- | Try to parse the value from 'Text' producing 'Nothing' on failure.
 maybeFromText :: (Syntactic value) => Text -> Maybe value
