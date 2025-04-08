@@ -1,6 +1,16 @@
 module SyntacticClass
-  ( module SyntacticClass.Class,
-    module SyntacticClass.Instances.InIso8601,
+  ( -- * Class
+    Syntactic (..),
+
+    -- ** Helpers
+    toText,
+    maybeFromText,
+
+    -- ** Laws
+    syntacticProperties,
+
+    -- * Wrappers
+    InIso8601 (..),
   )
 where
 

@@ -9,14 +9,20 @@ import qualified TextBuilder
 -- |
 -- Canonical syntax for a value with rendering and parsing capabilities.
 --
--- Laws:
+-- === Laws
 --
--- - @'maybeFromText' . 'toText' = 'Just'@
+-- - @'maybeFromText' . 'toText' = 'Just'@ - For any value, parsing a result of rendering it always succeeds and produces a value that is equal to the original.
+-- 
+-- === Testing
+--
+-- For testing whether your instances conform to these laws, use 'syntacticProperties'.
 class Syntactic value where
   -- | Compile the value to 'TextBuilder'.
   toTextBuilder :: value -> TextBuilder.TextBuilder
 
   -- | Attoparsec parser of the value.
+  -- May be lenient.
+  -- I.e., it may accept more than the canonical syntax.
   attoparsecParserOf :: Attoparsec.Parser value
 
 -- | Compile the value to 'Text'.
@@ -33,7 +39,15 @@ maybeFromText input =
 
 -- * Laws
 
--- | Properties for validating instances of 'Syntactic'.
+-- | QuickCheck properties for validating instances of 'Syntactic' indexed by their names.
+--
+-- The instance is identified via the proxy type that you provide.
+--
+-- E.g., here's how you can integrate it into an Hspec test-suite:
+--
+-- > spec = do
+-- >   describe "Syntactic laws" do
+-- >     traverse_ (uncurry prop) (syntacticProperties @UUID Proxy)
 syntacticProperties ::
   forall value.
   (Syntactic value, Show value, Eq value, Arbitrary value) =>
@@ -41,7 +55,7 @@ syntacticProperties ::
   -- | List of properties by names.
   [(String, QuickCheck.Property)]
 syntacticProperties _ =
-  [ ( "Parsing a rendered value produces the original value",
+  [ ( "Parsing a rendered value produces the original",
       QuickCheck.property \(value :: value) ->
         let rendering = toText value
          in QuickCheck.counterexample
