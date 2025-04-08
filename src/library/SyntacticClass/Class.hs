@@ -9,11 +9,11 @@ import qualified TextBuilder
 -- |
 -- Canonical syntax for a value with rendering and parsing capabilities.
 --
--- === Laws
+-- __Laws__
 --
 -- - @'maybeFromText' . 'toText' = 'Just'@ - For any value, parsing a result of rendering it always succeeds and produces a value that is equal to the original.
 --
--- === Testing
+-- __Testing__
 --
 -- For testing whether your instances conform to these laws, use 'properties'.
 class Syntactic value where
