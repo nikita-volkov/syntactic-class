@@ -15,7 +15,7 @@ import qualified TextBuilder
 --
 -- === Testing
 --
--- For testing whether your instances conform to these laws, use 'syntacticProperties'.
+-- For testing whether your instances conform to these laws, use 'properties'.
 class Syntactic value where
   -- | Compile the value to 'TextBuilder'.
   toTextBuilder :: value -> TextBuilder.TextBuilder
@@ -47,14 +47,14 @@ maybeFromText input =
 --
 -- > spec = do
 -- >   describe "Syntactic laws" do
--- >     traverse_ (uncurry prop) (syntacticProperties @UUID Proxy)
-syntacticProperties ::
+-- >     traverse_ (uncurry prop) (properties @UUID Proxy)
+properties ::
   forall value.
   (Syntactic value, Show value, Eq value, Arbitrary value) =>
   Proxy value ->
   -- | List of properties by names.
   [(String, QuickCheck.Property)]
-syntacticProperties _ =
+properties _ =
   [ ( "Parsing a rendered value produces the original",
       QuickCheck.property \(value :: value) ->
         let rendering = toText value

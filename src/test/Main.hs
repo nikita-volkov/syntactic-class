@@ -37,5 +37,5 @@ itMeetsSyntacticLaws ::
   Proxy value ->
   Spec
 itMeetsSyntacticLaws valueProxy =
-  SyntacticClass.syntacticProperties valueProxy
+  SyntacticClass.properties valueProxy
     & traverse_ (uncurry prop)

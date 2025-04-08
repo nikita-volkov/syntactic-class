@@ -7,7 +7,7 @@ module SyntacticClass
     maybeFromText,
 
     -- ** Laws
-    syntacticProperties,
+    properties,
 
     -- * Format wrappers
     InFixedBinary (..),
