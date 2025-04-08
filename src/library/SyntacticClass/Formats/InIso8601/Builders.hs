@@ -1,4 +1,4 @@
-module SyntacticClass.Instances.InIso8601.Builders
+module SyntacticClass.Formats.InIso8601.Builders
   ( utcTime,
   )
 where

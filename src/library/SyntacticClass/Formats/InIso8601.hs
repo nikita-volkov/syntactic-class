@@ -1,9 +1,9 @@
-module SyntacticClass.Instances.InIso8601 where
+module SyntacticClass.Formats.InIso8601 where
 
 import qualified Attoparsec.Data as AttoparsecData
 import Data.Time
 import SyntacticClass.Class
-import qualified SyntacticClass.Instances.InIso8601.Builders as Builders
+import qualified SyntacticClass.Formats.InIso8601.Builders as Builders
 import SyntacticClass.Prelude
 
 -- | Wrapper for a value associating it with the ISO-8601 format.
