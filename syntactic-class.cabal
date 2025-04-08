@@ -87,6 +87,7 @@ library
   other-modules:
     SyntacticClass.Class
     SyntacticClass.Instances.InIso8601
+    SyntacticClass.Instances.InIso8601.Builders
     SyntacticClass.Prelude
 
   build-depends:

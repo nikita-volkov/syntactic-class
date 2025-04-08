@@ -3,6 +3,7 @@ module SyntacticClass.Instances.InIso8601 where
 import qualified Attoparsec.Time.Text as Attoparsec
 import Data.Time
 import SyntacticClass.Class
+import qualified SyntacticClass.Instances.InIso8601.Builders as Builders
 import SyntacticClass.Prelude
 import qualified TextBuilderDev
 
@@ -21,24 +22,24 @@ newtype InIso8601 a = InIso8601 {base :: a}
 instance Syntactic (InIso8601 UTCTime) where
   toTextBuilder (InIso8601 UTCTime {..}) =
     let (year, month, day) = toGregorian utctDay
-        daySeconds = round utctDayTime :: Int
-        (dayMinutes, second) = divMod daySeconds 60
+        picoseconds = diffTimeToPicoseconds utctDayTime
+        (seconds, picosecond) = divMod picoseconds 1_000_000_000_000
+        seconds' = fromInteger seconds :: Int
+        (dayMinutes, second) = divMod seconds' 60
         (hour, minute) = divMod dayMinutes 60
-     in compile year month day hour minute second
-    where
-      compile y mo d h mi s =
-        mconcat
-          [ TextBuilderDev.fixedLengthDecimal 4 y,
+     in mconcat
+          [ TextBuilderDev.fixedLengthDecimal 4 year,
             "-",
-            TextBuilderDev.fixedLengthDecimal 2 mo,
+            TextBuilderDev.fixedLengthDecimal 2 month,
             "-",
-            TextBuilderDev.fixedLengthDecimal 2 d,
+            TextBuilderDev.fixedLengthDecimal 2 day,
             "T",
-            TextBuilderDev.fixedLengthDecimal 2 h,
+            TextBuilderDev.fixedLengthDecimal 2 hour,
             ":",
-            TextBuilderDev.fixedLengthDecimal 2 mi,
+            TextBuilderDev.fixedLengthDecimal 2 minute,
             ":",
-            TextBuilderDev.fixedLengthDecimal 2 s,
+            TextBuilderDev.fixedLengthDecimal 2 second,
+            Builders.picosecondsSubsecondsComponent (fromIntegral picosecond),
             "Z"
           ]
 

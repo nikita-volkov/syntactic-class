@@ -6,6 +6,12 @@ import SyntacticClass.Prelude
 import qualified Test.QuickCheck as QuickCheck
 import qualified TextBuilderDev
 
+-- |
+-- Canonical syntax for a value with rendering and parsing capabilities.
+--
+-- Laws:
+--
+-- - @'maybeFromText' . 'toText' = 'Just'@
 class Syntactic value where
   -- | Compile the value to 'TextBuilder'.
   toTextBuilder :: value -> TextBuilderDev.TextBuilder
@@ -35,26 +41,17 @@ syntacticProperties ::
 syntacticProperties _ =
   [ ( "Parsing a rendered value produces the original value",
       QuickCheck.property \(value :: value) ->
-        let firstRendering = toText value
+        let rendering = toText value
          in QuickCheck.counterexample
-              ("First rendering: " <> Text.unpack firstRendering)
-              case maybeFromText @value firstRendering of
+              ("Rendering: " <> Text.unpack rendering)
+              case maybeFromText @value rendering of
                 Nothing ->
                   QuickCheck.counterexample
-                    "First rendering is unparsable"
+                    "Rendering is unparsable"
                     (QuickCheck.property False)
-                Just firstParsing ->
-                  let secondRendering = toText firstParsing
-                   in QuickCheck.counterexample
-                        ("Second rendering: " <> Text.unpack secondRendering)
-                        case maybeFromText @value secondRendering of
-                          Nothing ->
-                            QuickCheck.counterexample
-                              "Second rendering is unparsable"
-                              (QuickCheck.property False)
-                          Just secondParsing ->
-                            QuickCheck.counterexample
-                              ("Second parsing: " <> show secondParsing)
-                              (secondParsing QuickCheck.=== firstParsing)
+                Just parsing ->
+                  QuickCheck.counterexample
+                    ("Parsing: " <> show parsing)
+                    (parsing QuickCheck.=== value)
     )
   ]
