@@ -96,6 +96,8 @@ library
     SyntacticClass.Class
     SyntacticClass.Instances.InIso8601
     SyntacticClass.Instances.InIso8601.Builders
+    SyntacticClass.Instances.LazyText
+    SyntacticClass.Instances.Text
     SyntacticClass.Instances.Uuid
     SyntacticClass.Prelude
 
