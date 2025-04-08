@@ -5,7 +5,6 @@ import Data.Time
 import SyntacticClass.Class
 import qualified SyntacticClass.Instances.InIso8601.Builders as Builders
 import SyntacticClass.Prelude
-import qualified TextBuilderDev
 
 newtype InIso8601 a = InIso8601 {base :: a}
   deriving newtype (Eq, Ord, Arbitrary)
@@ -20,28 +19,7 @@ newtype InIso8601 a = InIso8601 {base :: a}
 -- >>> maybeFromText "2021-11-24T12:11:02Z" :: Maybe (InIso8601 UTCTime)
 -- Just "2021-11-24T12:11:02Z"
 instance Syntactic (InIso8601 UTCTime) where
-  toTextBuilder (InIso8601 UTCTime {..}) =
-    let (year, month, day) = toGregorian utctDay
-        picoseconds = diffTimeToPicoseconds utctDayTime
-        (seconds, picosecond) = divMod picoseconds 1_000_000_000_000
-        seconds' = fromInteger seconds :: Int
-        (dayMinutes, second) = divMod seconds' 60
-        (hour, minute) = divMod dayMinutes 60
-     in mconcat
-          [ TextBuilderDev.fixedLengthDecimal 4 year,
-            "-",
-            TextBuilderDev.fixedLengthDecimal 2 month,
-            "-",
-            TextBuilderDev.fixedLengthDecimal 2 day,
-            "T",
-            TextBuilderDev.fixedLengthDecimal 2 hour,
-            ":",
-            TextBuilderDev.fixedLengthDecimal 2 minute,
-            ":",
-            TextBuilderDev.fixedLengthDecimal 2 second,
-            Builders.picosecondsSubsecondsComponent (fromIntegral picosecond),
-            "Z"
-          ]
+  toTextBuilder (InIso8601 base) = Builders.utcTime base
 
   attoparsecParserOf = fmap InIso8601 Attoparsec.utcTimeInISO8601
 
