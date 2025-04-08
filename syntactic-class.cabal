@@ -2,8 +2,16 @@ cabal-version: 3.0
 name: syntactic-class
 version: 0
 category: Text, Builders, Formatting, Parsing, Syntax
-synopsis:
+synopsis: Lawful typeclass for canonical formatting and parsing
 description:
+  Many types have a canonical textual notation. E.g., UUID, email address, URL, IP. Having such a notation implies being able to render such values to text and parsing from it. This library provides a lawful typeclass for such types.
+
+  There also are types which have several textual notations. E.g., a date can be represented in ISO8601 format or in RFC1123 format. Such types are also supported by this library with the help of newtype wrappers such as 'SyntacticClass.InIso8601'.
+
+  In the Haskell community there exists a common practice of using 'Read' and 'Show' typeclasses for similar purposes, however, it is flawed. These typeclasses are not lawful and they promote representing values as Haskell expressions. Consider this library as a solution to this problem.
+
+  The typeclass operates on composable builders and parsers making the instances reusable in a wide range of situations.
+
 homepage: https://github.com/nikita-volkov/syntactic-class
 bug-reports: https://github.com/nikita-volkov/syntactic-class/issues
 author: Nikita Volkov <nikita.y.volkov@mail.ru>

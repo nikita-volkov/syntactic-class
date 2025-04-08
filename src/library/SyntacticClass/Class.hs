@@ -19,9 +19,11 @@ class Syntactic value where
   -- | Attoparsec parser of the value.
   attoparsecParserOf :: Attoparsec.Parser value
 
+-- | Compile the value to 'Text'.
 toText :: (Syntactic value) => value -> Text
 toText = TextBuilderDev.to . toTextBuilder
 
+-- | Try to parse the value from 'Text' producing 'Nothing' on failure.
 maybeFromText :: (Syntactic value) => Text -> Maybe value
 maybeFromText input =
   Attoparsec.parseOnly (attoparsecParserOf <* Attoparsec.endOfInput) input
