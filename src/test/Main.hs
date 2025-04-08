@@ -5,6 +5,7 @@ import qualified SyntacticClass
 import Test.Hspec
 import Test.Hspec.QuickCheck
 import Test.QuickCheck
+import Test.QuickCheck.Instances ()
 import Prelude
 
 main :: IO ()

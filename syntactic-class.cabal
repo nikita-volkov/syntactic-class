@@ -104,7 +104,6 @@ library
     attoparsec-time ^>=1.0.3.1,
     base >=4.11 && <5,
     bytestring >=0.10 && <0.13,
-    quickcheck-instances >=0.3.28 && <0.4,
     text >=1.0 && <3,
     text-builder-dev ^>=0.4,
     time >=1.12 && <2,
@@ -122,5 +121,6 @@ test-suite test
   build-depends:
     QuickCheck >=2.14 && <3,
     hspec >=2.11 && <3,
+    quickcheck-instances >=0.3.28 && <0.4,
     rerebase >=1.21.2 && <2,
     syntactic-class,
