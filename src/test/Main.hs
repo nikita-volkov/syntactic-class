@@ -13,6 +13,8 @@ main = hspec do
   describe "InIso8601" do
     describe "UTCTime" do
       itMeetsSyntacticLaws (Proxy @(SyntacticClass.InIso8601 UTCTime))
+  describe "UUID" do
+    itMeetsSyntacticLaws (Proxy @UUID)
 
 itMeetsSyntacticLaws ::
   ( Syntactic value,

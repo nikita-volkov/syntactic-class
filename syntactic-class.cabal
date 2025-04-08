@@ -96,6 +96,7 @@ library
     SyntacticClass.Class
     SyntacticClass.Instances.InIso8601
     SyntacticClass.Instances.InIso8601.Builders
+    SyntacticClass.Instances.Uuid
     SyntacticClass.Prelude
 
   build-depends:
@@ -108,6 +109,7 @@ library
     text-builder-dev ^>=0.4,
     time >=1.12 && <2,
     transformers >=0.5 && <0.7,
+    uuid >=1.3 && <2,
 
 test-suite test
   import: test
