@@ -12,7 +12,7 @@ import qualified TextBuilder
 -- === Laws
 --
 -- - @'maybeFromText' . 'toText' = 'Just'@ - For any value, parsing a result of rendering it always succeeds and produces a value that is equal to the original.
--- 
+--
 -- === Testing
 --
 -- For testing whether your instances conform to these laws, use 'syntacticProperties'.
