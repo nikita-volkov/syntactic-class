@@ -1,6 +1,6 @@
 module SyntacticClass.Instances.InIso8601 where
 
-import qualified Attoparsec.Time.Text as Attoparsec
+import qualified Attoparsec.Data as AttoparsecData
 import Data.Time
 import SyntacticClass.Class
 import qualified SyntacticClass.Instances.InIso8601.Builders as Builders
@@ -21,7 +21,7 @@ newtype InIso8601 a = InIso8601 {base :: a}
 instance Syntactic (InIso8601 UTCTime) where
   toTextBuilder (InIso8601 base) = Builders.utcTime base
 
-  attoparsecParserOf = fmap InIso8601 Attoparsec.utcTimeInISO8601
+  attoparsecParserOf = fmap InIso8601 AttoparsecData.utcTimeInISO8601
 
 instance IsString (InIso8601 UTCTime) where
   fromString = fromMaybe def . maybeFromText . fromString
