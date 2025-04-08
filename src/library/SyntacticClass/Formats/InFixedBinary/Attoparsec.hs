@@ -72,19 +72,15 @@ fixedWidthDigits =
 -- >>> parseOnly @Word8 dynamicWidthDigits "11"
 -- Right 3
 --
+-- Handles \"sign extension\" on signed numbers:
+--
+-- >>> parseOnly @Int8 dynamicWidthDigits "11"
+-- Right 3
+--
 -- Handles empty input:
 --
 -- >>> parseOnly @Int8 dynamicWidthDigits ""
 -- Right 0
---
--- __Warning__
---
--- Due to \"sign extension\" it works differently on signed numbers:
---
--- >>> parseOnly @Int8 dynamicWidthDigits "11"
--- Right (-1)
---
--- To get the expected behaviour parse an unsigned analogue of the number and convert using 'fromIntegral' afterwards.
 dynamicWidthDigits :: forall a. (FiniteBits a, Num a) => Parser a
 dynamicWidthDigits =
   go (pred (finiteBitSize (undefined :: a))) 0
@@ -104,4 +100,7 @@ dynamicWidthDigits =
                 then go (pred i) acc
                 else go (pred i) (setBit acc i)
             Nothing ->
-              return (unsafeShiftR acc (succ i))
+              return (unsafeLogicalShiftR acc (succ i))
+
+    unsafeLogicalShiftR n count =
+      unsafeShiftR n count .&. ((1 `shiftL` (finiteBitSize n - count)) - 1)

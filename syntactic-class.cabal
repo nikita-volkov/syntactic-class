@@ -96,17 +96,6 @@ library
     SyntacticClass.Class
     SyntacticClass.Formats.InFixedBinary
     SyntacticClass.Formats.InFixedBinary.Attoparsec
-    SyntacticClass.Formats.InFixedBinary.Core
-    SyntacticClass.Formats.InFixedBinary.Instances.Int
-    SyntacticClass.Formats.InFixedBinary.Instances.Int16
-    SyntacticClass.Formats.InFixedBinary.Instances.Int32
-    SyntacticClass.Formats.InFixedBinary.Instances.Int64
-    SyntacticClass.Formats.InFixedBinary.Instances.Int8
-    SyntacticClass.Formats.InFixedBinary.Instances.Word
-    SyntacticClass.Formats.InFixedBinary.Instances.Word16
-    SyntacticClass.Formats.InFixedBinary.Instances.Word32
-    SyntacticClass.Formats.InFixedBinary.Instances.Word64
-    SyntacticClass.Formats.InFixedBinary.Instances.Word8
     SyntacticClass.Formats.InIso8601
     SyntacticClass.Formats.InIso8601.Builders
     SyntacticClass.Instances.LazyText

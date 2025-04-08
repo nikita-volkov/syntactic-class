@@ -3,14 +3,24 @@ module SyntacticClass.Formats.InFixedBinary
   )
 where
 
-import SyntacticClass.Formats.InFixedBinary.Core
-import SyntacticClass.Formats.InFixedBinary.Instances.Int ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Int16 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Int32 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Int64 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Int8 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Word ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Word16 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Word32 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Word64 ()
-import SyntacticClass.Formats.InFixedBinary.Instances.Word8 ()
+import SyntacticClass.Class
+import qualified SyntacticClass.Formats.InFixedBinary.Attoparsec as Attoparsec
+import SyntacticClass.Prelude
+import qualified TextBuilder
+
+-- | Wrapper for a value associating it with the fixed-width binary notation.
+--
+-- Provides instances for all types that are instances of 'FiniteBits' and 'Num',
+-- which includes all ints and words.
+newtype InFixedBinary a = InFixedBinary a
+  deriving newtype (Eq, Ord, Arbitrary)
+
+instance (FiniteBits a, Num a) => Syntactic (InFixedBinary a) where
+  toTextBuilder (InFixedBinary base) = TextBuilder.binary base
+  attoparsecParserOf = fmap InFixedBinary Attoparsec.dynamicWidthDigits
+
+instance (FiniteBits a, Num a) => IsString (InFixedBinary a) where
+  fromString = fromMaybe (InFixedBinary 0) . maybeFromText . fromString
+
+instance (FiniteBits a, Num a) => Show (InFixedBinary a) where
+  showsPrec d = showsPrec d . toText
