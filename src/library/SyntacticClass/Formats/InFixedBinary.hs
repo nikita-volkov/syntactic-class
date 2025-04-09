@@ -14,6 +14,7 @@ import qualified TextBuilder
 -- which includes all ints and words.
 newtype InFixedBinary a = InFixedBinary a
   deriving newtype (Eq, Ord, Arbitrary)
+  deriving stock (Functor)
 
 instance (FiniteBits a, Num a) => Syntactic (InFixedBinary a) where
   toTextBuilder (InFixedBinary base) = TextBuilder.binary base
