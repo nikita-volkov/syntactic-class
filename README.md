@@ -1,37 +1,84 @@
-# Summary
+# syntactic-class
 
-Lawful typeclass for canonical formatting and parsing.
+**A Lawful Typeclass for Canonical Formatting and Parsing in Haskell**
 
-# Problem
+## Overview
 
-In Haskell, there is considerable confusion surrounding formatters and parsers associated with types. By default, people reach for `Show` and `Read` from "base" and eventually discover that:
+**syntactic-class** provides a robust, composable, and lawful typeclass to bridge the gap between value rendering and parsing. It offers a modern, efficient alternative to Haskell’s built-in `Show` and `Read` typeclasses, delivering a standardized approach to textual representations for various types.
 
-1. They have no clear purpose because there is no standard. [The docs](https://hackage.haskell.org/package/base-4.21.0.0/docs/Prelude.html#t:Show) suggest representing values as Haskell expressions, but the guidelines are permissive and don't declare any laws. As a result, library authors interpret them freely, leading to even essential libraries such as "time" violating the suggested format.
+## The Problem
 
-2. They are grossly inefficient. They operate on `String` and use suboptimal abstractions.
+Haskell’s default typeclasses, `Show` and `Read`, come with several limitations:
 
-3. They are outdated and have terrible UX. They use `ShowS` instead of simple monoidal builders and rely on `ReadS` and `ReadPrec` instead of commonly accepted modern parsers like "attoparsec" or "megaparsec".
+- **Lack of Consistency:**  
+  The `Show` typeclass is intended for rendering Haskell expressions, yet its permissiveness leads to inconsistent implementations. This inconsistency extends to many essential libraries (e.g., the `time` library) that diverge from the suggested behavior.
 
-4. The choice of Haskell expressions as the suggested format leads to an endless stream of questions from newcomers confused by `show` putting rendered types in extra quotes (e.g., UUID). Libraries relying on these for domain-specific syntax bring similar confusion (e.g., [`showDefault`](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:showDefault) and [`auto`](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:auto) in "optparse-applicative").
+- **Inefficiency:**  
+  Traditional implementations operate on `String` with suboptimal abstractions, leading to performance issues.
 
-# Insight
+- **Outdated User Experience:**  
+  The reliance on `ShowS`, `ReadS`, and `ReadPrec` results in clunky interfaces. Modern alternatives, such as "attoparsec" or "megaparsec" for parsing and monoidal builders for formatting, offer a smoother experience but are not integrated by default.
 
-Let's face it: `Show` and `Read` are primarily for debugging and interacting with `ghci`. For other cases, we need different solutions:
+- **Unexpected Haskell Expressions:**  
+  Newcomers often find it confusing when rendered types appear in extra quotes (e.g., UUIDs) or when domain-specific syntax leads to questions about representation (see examples like [`showDefault`](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:showDefault) and [`auto`](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:auto) from *optparse-applicative*).
 
-1. Many types have a canonical textual notation. For example, there's no question how UUID, email address, URL, or IP must be represented in textual form. Having such a notation implies being able to render values to text and parse from it.
+## The Insight
 
-2. Some types can have multiple textual notations. For example, a date can be represented in ISO8601 format or RFC1123 format, and integers can be represented in decimal, hexadecimal, binary, or octal notations.
+We recognize that:
 
-3. Complex data structures consisting of other structures (products, sums, collections) are typically represented using structural formats like JSON and YAML.
+- **Canonical Representations Exist:**  
+  Many types—such as UUIDs, email addresses, URLs, and IP addresses—have a natural, canonical textual form. They benefit from a standardized formatting and parsing approach.
 
-__Case 3__ is addressed by libraries like "aeson" and various pretty-printing libraries for custom formats.
+- **Multiple Notations are Necessary:**  
+  Some types (e.g., dates or integers) support various representations. Dates might appear as ISO8601 or RFC1123, while integers might be rendered in decimal, hexadecimal, binary, or octal forms.
 
-__Case 1__ can be addressed with a lawful typeclass without restrictions on the format. __Case 2__ can be addressed by applying that typeclass to newtype wrappers. This project addresses both.
+- **Standard Solutions for Structural Data:**  
+  Libraries such as "aeson" address complex structured data (products, sums, collections) using JSON, YAML, or similar formats, but a clear specification for simpler textual formats is still needed.
 
-# Solution
+By leveraging a lawful typeclass, **syntactic-class** provides an elegant solution:
+- **For Types with a Single Representation:**  
+  It directly delivers the canonical format.
+  
+- **For Types with Multiple Representations:**  
+  It encourages using newtype wrappers (e.g., a wrapper like `InIso8601` for dates) to distinguish between multiple valid formats.
 
-A lawful typeclass that associates types with their canonical textual representation. The format is determined solely by the type, with no requirement to be a Haskell expression.
+## The Solution
 
-For types that can have multiple formats, newtype wrappers can be provided. For example, since dates can be represented in multiple formats, a newtype wrapper named `InIso8601` with appropriate instances is provided by the library.
+**syntactic-class** defines a typeclass that ties each type to its *canonical* textual representation:
 
-The typeclass operates on a monoidal "text-builder" and monadic "attoparsec" parser, aiming to provide an optimal, composable, generic interface that integrates with various existing solutions.
+- **Lawful and Consistent:**  
+  Formats are determined solely by the type, without the encumbrance of Haskell expression encoding.
+
+- **Optimized for Efficiency:**  
+  By using a monoidal "text-builder" for output and a monadic "attoparsec" parser for input, the implementation delivers a high-performance, scalable interface.
+
+- **Composable and Integrable:**  
+  Designed to work seamlessly with existing Haskell libraries and to be extended with newtype wrappers for handling multiple formats, ensuring flexibility and reuse.
+
+## Why syntactic-class?
+
+- **Improved Clarity and Intent:**  
+  You get a clear separation between debugging-oriented `Show`/`Read` and production-ready, canonical formatting/parsing.
+  
+- **Modern Interfaces:**  
+  Replace clunky, outdated abstractions with modern functional programming tools.
+
+- **Enhanced Developer Experience:**  
+  The library minimizes confusion by establishing standard textual notations, making it easier for newcomers and experts alike to work with type representations.
+
+## Getting Started
+
+1. **Installation:**  
+   Add `syntactic-class` to your project's dependencies using Cabal or Stack.
+
+2. **Usage:**  
+   Import the module and leverage the typeclass instances provided for common types. For types requiring multiple representations, wrap them with the appropriate newtype (e.g., `InIso8601` for dates).
+
+3. **Contribution:**  
+   We welcome contributions! Please refer to our contribution guidelines and issue tracker for more details.
+
+## Conclusion
+
+**syntactic-class** aims to be the go-to solution for canonical textual formatting and parsing in Haskell, addressing long-standing issues with traditional typeclasses. Whether you're writing a new library or updating an existing codebase, our approach helps establish clarity, efficiency, and modernity in your Haskell projects.
+
+Happy coding!
