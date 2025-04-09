@@ -4,13 +4,9 @@ version: 0
 category: Text, Builders, Formatting, Parsing, Syntax
 synopsis: Lawful typeclass for canonical formatting and parsing
 description:
-  Many types have a canonical textual notation. E.g., UUID, email address, URL, IP. Having such a notation implies being able to render such values to text and parsing from it. This library provides a lawful typeclass for such types.
+  Library providing a lawful typeclass for canonical formatting and parsing of types. It addresses the shortcomings of `Show` and `Read`, which lack clear laws, produce confusing output, and rely on inefficient, outdated abstractions like `String` and `ShowS`/`ReadS`. Instead, "syntactic-class" offers a modern, efficient, and consistent approach to rendering and parsing types in their standard textual forms.
 
-  There also are types which have multiple textual notations. E.g., a date can be represented in the ISO8601 format or in the RFC1123 format. Such types are also supported by this library with the help of newtype wrappers such as `InIso8601`.
-
-  The typeclass operates on composable builders and parsers making the instances reusable in a wide range of situations.
-
-  In the Haskell community there exists a common practice of using `Read` and `Show` typeclasses for similar purposes, however, it is flawed. These typeclasses are not lawful and they promote representing values as Haskell expressions instead of domain-specific notations which people often expect from them. This leads to a mess surrounding the conventions around these classes with a notable example of the "time" library supplying instances which are incompatible with Haskell expressions. Atop of that that these classes operate on `String`. Consider this library as a solution to this problem.
+  The `Syntactic` typeclass ensures lawfulness (parsing a rendered value recovers the original), focuses on canonical notations and leverages "[text-builder](https://hackage.haskell.org/package/text-builder)" for formatting and "[attoparsec](https://hackage.haskell.org/package/attoparsec)" for parsing. It supports multiple notations via newtype wrappers (e.g., `InIso8601` for dates) and integrates well with Haskell's ecosystem, making it ideal for practical use beyond debugging.
 
 homepage: https://github.com/nikita-volkov/syntactic-class
 bug-reports: https://github.com/nikita-volkov/syntactic-class/issues
