@@ -4,18 +4,18 @@
 
 ## Overview
 
-**syntactic-class** provides a robust, composable, and lawful typeclass to bridge the gap between value rendering and parsing. It offers a modern, efficient alternative to Haskell’s built-in `Show` and `Read` typeclasses, delivering a standardized approach to textual representations for various types.
+**syntactic-class** is a Haskell library that provides a lawful typeclass for canonical formatting and parsing of types. It moves beyond the limitations of `Show` and `Read`, offering a modern, efficient, and consistent way to *render* and *parse* types in their standard textual forms.
 
 ## The Problem
 
 Haskell’s default typeclasses, `Show` and `Read`, come with several limitations:
 
 - **They are intended for Haskell expressions:**  
-  Newcomers often find it confusing when shown types appear in quotes (e.g., [`UUID`](https://hackage.haskell.org/package/uuid-1.3.16/docs/Data-UUID.html#t:UUID)) or when such unexpected requirements leak to the interface of the app due to libraries relying on them (e.g., "optparse-applicative" does so for default [formatting](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:showDefault) and [parsing](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:auto) of arguments).
+  Newcomers often find it confusing when shown types appear in quotes (e.g., [`UUID`](https://hackage.haskell.org/package/uuid-1.3.16/docs/Data-UUID.html#t:UUID)) or when such unexpected requirements leak to the interface of their apps due to libraries relying on them (e.g., "optparse-applicative" does so for default [formatting](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:showDefault) and [parsing](https://hackage.haskell.org/package/optparse-applicative-0.18.1.0/docs/Options-Applicative.html#v:auto) of arguments).
 
 - **Inconsistency:**  
   There is no law requiring `Show` to be compatible with `Read`.
-  The permissiveness of [docs](https://hackage.haskell.org/package/base-4.21.0.0/docs/Prelude.html#t:Show) further leads to inconsistent implementations, which diverge from the suggested behavior (e.g., the Show instances in "time" [do not](https://github.com/haskell/time/issues/271) produce valid Haskell expressions).
+  The permissiveness of [docs](https://hackage.haskell.org/package/base-4.21.0.0/docs/Prelude.html#t:Show) further leads to inconsistent implementations, which diverge from the suggested behavior (e.g., the `Show` instances in "time" [do not](https://github.com/haskell/time/issues/271) produce valid Haskell expressions).
 
 - **Inefficiency:**  
   These classes operate on `String`, leading to performance issues.
@@ -38,7 +38,15 @@ We recognize that:
 
 ## The Solution
 
-**syntactic-class** defines a typeclass that ties each type to its *canonical* textual representation. It is:
+**syntactic-class** defines a typeclass that ties each type to its *canonical* textual representation, providing a uniform solution:
+
+- **For types with a single representation:**  
+  It directly delivers the canonical format.
+  
+- **For types with multiple representations:**  
+  It encourages using newtype wrappers (e.g., a wrapper like `InIso8601` for dates) to distinguish between multiple valid formats.
+
+**syntactic-class** is:
 
 - **Lawful and consistent:**  
   Formats are determined solely by the type, without the encumbrance of Haskell expression encoding.
@@ -48,14 +56,6 @@ We recognize that:
 
 - **Composable and integrable:**  
   Designed to work seamlessly with existing Haskell libraries and to be extended with newtype wrappers for handling multiple formats, ensuring flexibility and reuse.
-
-By leveraging a lawful typeclass, **syntactic-class** provides a uniform solution:
-
-- **For types with a single representation:**  
-  It directly delivers the canonical format.
-  
-- **For types with multiple representations:**  
-  It encourages using newtype wrappers (e.g., a wrapper like `InIso8601` for dates) to distinguish between multiple valid formats.
 
 ## Why syntactic-class?
 
