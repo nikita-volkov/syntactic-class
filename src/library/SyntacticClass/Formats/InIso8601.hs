@@ -20,8 +20,8 @@ newtype InIso8601 a = InIso8601 a
 -- >>> maybeFromText "2021-11-24T12:11:02Z" :: Maybe (InIso8601 UTCTime)
 -- Just "2021-11-24T12:11:02Z"
 --
--- >>> toText (InIso8601 (UTCTime (fromGregorian 2000 12 31) 0.0000123))
--- "2000-12-31T00:00:00.0000123Z"
+-- >>> toText (InIso8601 (UTCTime (fromGregorian 2000 12 31) 61.0000123))
+-- "2000-12-31T00:01:01.0000123Z"
 instance Syntactic (InIso8601 UTCTime) where
   toTextBuilder (InIso8601 base) = Builders.utcTime base
 
