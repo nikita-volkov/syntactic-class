@@ -1,4 +1,4 @@
-module SyntacticClass.Class where
+module SyntacticClass.Core where
 
 import qualified Data.Attoparsec.Text as Attoparsec
 import qualified Data.Text as Text

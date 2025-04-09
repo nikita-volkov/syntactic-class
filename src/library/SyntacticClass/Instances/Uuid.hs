@@ -4,7 +4,7 @@ module SyntacticClass.Instances.Uuid where
 
 import qualified Attoparsec.Data as AttoparsecData
 import qualified Data.UUID as Uuid
-import SyntacticClass.Class
+import SyntacticClass.Core
 import SyntacticClass.Prelude
 import qualified TextBuilder
 

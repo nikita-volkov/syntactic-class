@@ -4,7 +4,7 @@ module SyntacticClass.Formats.InIso8601.Instances.UTCTime where
 
 import qualified Attoparsec.Data as AttoparsecData
 import Data.Time
-import SyntacticClass.Class
+import SyntacticClass.Core
 import qualified SyntacticClass.Formats.InIso8601.Builders as Builders
 import SyntacticClass.Formats.InIso8601.Core
 import SyntacticClass.Prelude

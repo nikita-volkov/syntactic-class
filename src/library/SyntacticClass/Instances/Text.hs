@@ -3,7 +3,7 @@
 module SyntacticClass.Instances.Text where
 
 import qualified Data.Attoparsec.Text as Attoparsec
-import SyntacticClass.Class
+import SyntacticClass.Core
 import SyntacticClass.Prelude
 import qualified TextBuilder
 

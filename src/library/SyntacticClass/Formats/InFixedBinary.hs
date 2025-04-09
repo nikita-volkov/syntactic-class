@@ -3,7 +3,7 @@ module SyntacticClass.Formats.InFixedBinary
   )
 where
 
-import SyntacticClass.Class
+import SyntacticClass.Core
 import qualified SyntacticClass.Formats.InFixedBinary.Attoparsec as Attoparsec
 import SyntacticClass.Prelude
 import qualified TextBuilder

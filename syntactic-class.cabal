@@ -89,7 +89,7 @@ library
   hs-source-dirs: src/library
   exposed-modules: SyntacticClass
   other-modules:
-    SyntacticClass.Class
+    SyntacticClass.Core
     SyntacticClass.Formats.InFixedBinary
     SyntacticClass.Formats.InFixedBinary.Attoparsec
     SyntacticClass.Formats.InIso8601
