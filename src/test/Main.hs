@@ -12,6 +12,7 @@ import Prelude
 main :: IO ()
 main = hspec do
   describe "InIso8601" do
+    describe "Day" do itMeetsSyntacticLaws (Proxy @(SyntacticClass.InIso8601 Day))
     describe "UTCTime" do itMeetsSyntacticLaws (Proxy @(SyntacticClass.InIso8601 UTCTime))
   describe "InFixedBinary" do
     describe "Int" do itMeetsSyntacticLaws (Proxy @(SyntacticClass.InFixedBinary Int))

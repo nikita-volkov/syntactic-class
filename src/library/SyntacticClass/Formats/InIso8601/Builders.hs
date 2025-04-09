@@ -1,26 +1,33 @@
 module SyntacticClass.Formats.InIso8601.Builders
-  ( utcTime,
+  ( day,
+    utcTime,
   )
 where
 
 import SyntacticClass.Prelude
 import TextBuilder
 
+{-# INLINE day #-}
+day :: Day -> TextBuilder
+day (toGregorian -> (year, month, day)) =
+  mconcat
+    [ fixedLengthDecimal 4 year,
+      "-",
+      fixedLengthDecimal 2 month,
+      "-",
+      fixedLengthDecimal 2 day
+    ]
+
 {-# INLINE utcTime #-}
 utcTime :: UTCTime -> TextBuilder
 utcTime UTCTime {..} =
-  let (year, month, day) = toGregorian utctDay
-      picoseconds = diffTimeToPicoseconds utctDayTime
+  let picoseconds = diffTimeToPicoseconds utctDayTime
       (seconds, picosecond) = divMod picoseconds 1_000_000_000_000
       seconds' = fromInteger seconds :: Int
       (dayMinutes, second) = divMod seconds' 60
       (hour, minute) = divMod dayMinutes 60
    in mconcat
-        [ fixedLengthDecimal 4 year,
-          "-",
-          fixedLengthDecimal 2 month,
-          "-",
-          fixedLengthDecimal 2 day,
+        [ day utctDay,
           "T",
           fixedLengthDecimal 2 hour,
           ":",
