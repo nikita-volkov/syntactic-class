@@ -4,7 +4,7 @@ version: 0
 category: Text, Builders, Formatting, Parsing, Syntax
 synopsis: Lawful typeclass for canonical formatting and parsing
 description:
-  Library providing a lawful typeclass for canonical formatting and parsing of types. It addresses the shortcomings of `Show` and `Read`, which lack clear laws, produce confusing output, and rely on inefficient, outdated abstractions like `String` and `ShowS`/`ReadS`. Instead, "syntactic-class" offers a modern, efficient, and consistent approach to rendering and parsing types in their standard textual forms.
+  Library providing a lawful typeclass for canonical formatting and parsing of types. It addresses the shortcomings of `Show` and `Read`, which lack clear laws, produce confusing output, and rely on `String`. Instead, "syntactic-class" offers a modern, efficient, and consistent approach to rendering and parsing types in their standard textual forms.
 
   The `Syntactic` typeclass ensures lawfulness (parsing a rendered value recovers the original), focuses on canonical notations and leverages "[text-builder](https://hackage.haskell.org/package/text-builder)" for formatting and "[attoparsec](https://hackage.haskell.org/package/attoparsec)" for parsing. It supports multiple notations via newtype wrappers (e.g., `InIso8601` for dates) and integrates well with Haskell's ecosystem, making it ideal for practical use beyond debugging.
 
@@ -94,6 +94,8 @@ library
     SyntacticClass.Formats.InFixedBinary.Attoparsec
     SyntacticClass.Formats.InIso8601
     SyntacticClass.Formats.InIso8601.Builders
+    SyntacticClass.Formats.InIso8601.Core
+    SyntacticClass.Formats.InIso8601.Instances.UTCTime
     SyntacticClass.Instances.LazyText
     SyntacticClass.Instances.Text
     SyntacticClass.Instances.Uuid
