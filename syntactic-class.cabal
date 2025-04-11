@@ -93,7 +93,6 @@ library
     SyntacticClass.Formats.InFixedBinary
     SyntacticClass.Formats.InFixedBinary.Attoparsec
     SyntacticClass.Formats.InIso8601
-    SyntacticClass.Formats.InIso8601.Builders
     SyntacticClass.Formats.InIso8601.Core
     SyntacticClass.Formats.InIso8601.Instances.Day
     SyntacticClass.Formats.InIso8601.Instances.UTCTime
@@ -110,6 +109,7 @@ library
     bytestring >=0.10 && <0.13,
     text >=1.0 && <3,
     text-builder ^>=1,
+    text-builder-time ^>=0.1,
     time >=1.12 && <2,
     transformers >=0.5 && <0.7,
     uuid >=1.3 && <2,

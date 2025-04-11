@@ -5,9 +5,9 @@ module SyntacticClass.Formats.InIso8601.Instances.UTCTime where
 import qualified Attoparsec.Data as AttoparsecData
 import Data.Time
 import SyntacticClass.Core
-import qualified SyntacticClass.Formats.InIso8601.Builders as Builders
 import SyntacticClass.Formats.InIso8601.Core
 import SyntacticClass.Prelude
+import qualified TextBuilderTime.Iso8601 as Builders
 
 -- | UTCTime in ISO-8601 format.
 --
