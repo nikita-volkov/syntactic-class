@@ -4,6 +4,7 @@ module SyntacticClass
 
     -- ** Helpers
     toText,
+    toString,
     maybeFromText,
 
     -- ** Laws

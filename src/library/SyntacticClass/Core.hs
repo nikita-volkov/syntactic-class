@@ -29,6 +29,10 @@ class Syntactic value where
 toText :: (Syntactic value) => value -> Text
 toText = TextBuilder.toText . toTextBuilder
 
+-- | Compile the value to 'String'.
+toString :: (Syntactic value) => value -> String
+toString = Text.unpack . toText
+
 -- | Try to parse the value from 'Text' producing 'Nothing' on failure.
 maybeFromText :: (Syntactic value) => Text -> Maybe value
 maybeFromText input =
