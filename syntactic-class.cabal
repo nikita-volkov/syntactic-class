@@ -97,10 +97,18 @@ library
     SyntacticClass.Formats.InIso8601.Instances.Day
     SyntacticClass.Formats.InIso8601.Instances.UTCTime
     SyntacticClass.Instances.Int
+    SyntacticClass.Instances.Int16
+    SyntacticClass.Instances.Int32
+    SyntacticClass.Instances.Int64
+    SyntacticClass.Instances.Int8
     SyntacticClass.Instances.LazyText
     SyntacticClass.Instances.Text
     SyntacticClass.Instances.Uuid
     SyntacticClass.Instances.Word
+    SyntacticClass.Instances.Word16
+    SyntacticClass.Instances.Word32
+    SyntacticClass.Instances.Word64
+    SyntacticClass.Instances.Word8
     SyntacticClass.Prelude
 
   build-depends:
