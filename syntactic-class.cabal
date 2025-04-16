@@ -119,7 +119,7 @@ library
     base >=4.11 && <5,
     bytestring >=0.10 && <0.13,
     text >=1.0 && <3,
-    text-builder ^>=1,
+    text-builder ^>=1.0.0.3,
     text-builder-time ^>=0.1,
     time >=1.12 && <2,
     transformers >=0.5 && <0.7,
