@@ -102,6 +102,7 @@ library
     SyntacticClass.Instances.Int64
     SyntacticClass.Instances.Int8
     SyntacticClass.Instances.LazyText
+    SyntacticClass.Instances.String
     SyntacticClass.Instances.Text
     SyntacticClass.Instances.Uuid
     SyntacticClass.Instances.Word

@@ -28,6 +28,7 @@ main = hspec do
   describe "UUID" do itMeetsSyntacticLaws (Proxy @UUID)
   describe "Text" do itMeetsSyntacticLaws (Proxy @Text)
   describe "LazyText" do itMeetsSyntacticLaws (Proxy @LazyText.Text)
+  describe "String" do itMeetsSyntacticLaws (Proxy @String)
 
 itMeetsSyntacticLaws ::
   ( Syntactic value,
